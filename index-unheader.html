@@ -238,7 +238,7 @@
         var con_num = $('#con-num').val();
         console.log("request sent");
         // $.get('./track-package-response.json')
-        $.get('http://192.168.43.82:5000/pkg/' + con_num)
+        $.get('http://nahidunga.herokuapp.com//pkg/' + con_num)
           .done(data => {
             $('#show-search').click();
             $('.timeline').css('display', 'block');
@@ -258,33 +258,33 @@
             $('#source').html(pkg.source);
             $('#weight').html(pkg.weight + 'gm');
 
-            $.get('http://192.168.43.82:5000/eta/' + con_num)
+            $.get('http://nahidunga.herokuapp.com/eta/' + con_num)
               .done(res => {
                 console.log('eta aa gaya');
                 $('.eta-value').html(res.ETA);
               })
               .fail();
 
-            $.get('http://192.168.43.82:5000/scan/' + con_num)
+            $.get('http://nahidunga.herokuapp.com/scan/' + con_num)
               .done(data2 => {
                 console.log('scan aa gaya');
                 var str = "";
                 data2.package.scans.forEach(element => {
                   str +=
                     `<div class="col">
-                      <div class="row">
-                        <div class="col-2 icon-holder">
-                          <div class="icon"></div>
+                        <div class="row">
+                          <div class="col-2 icon-holder">
+                            <div class="icon"></div>
+                          </div>
+                          <div class="col-10">
+                            <strong>${element.timestamp}</strong>
+                            <br>
+                            <span>${element.stamp}</span>
+                            <span>${element.location}</span>
+                          </div>
                         </div>
-                        <div class="col-10">
-                          <strong>${element.timestamp}</strong>
-                          <br>
-                          <span>${element.stamp}</span>
-                          <span>${element.location}</span>
-                        </div>
-                      </div>
-                      <hr>
-                    </div>`;
+                        <hr>
+                      </div>`;
                 });
                 $('.perdata').html(str);
               })
